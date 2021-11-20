@@ -26,9 +26,15 @@ var Messages = {
   },
 
   add: function (data) {
-    for (let i = 0; i < data.length; i++) {
-      this._data.push(data[i]);
-    }
+    this._data = [...data];
+    console.log('add:', this._data);
+    MessagesView.render();
+  },
+
+  update: function (message) {
+    this._data.push(message);
+    const html = MessageView.render(message);
+    MessagesView.$chats.prepend(html);
   }
 
 };

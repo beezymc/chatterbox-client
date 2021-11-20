@@ -39,6 +39,8 @@ var FormView = {
       username: username
     };
     Parse.create(message, function () {
+      // Messages.add(message);
+      Messages.update(message);
       console.log('Successfully posted a message!');
     });
     // Messages.add(message);
