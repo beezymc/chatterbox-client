@@ -31,9 +31,10 @@ var FormView = {
     username: null
     */
     const $messageText = FormView.$form.find('input[id=message]').val();
+    const $selectedVal = $('select option:selected').val();
     const username = window.App.username;
     const message = {
-      // roomname:
+      roomname: $selectedVal,
       campus: window.CAMPUS,
       text: $messageText,
       username: username
@@ -44,6 +45,7 @@ var FormView = {
       console.log('Successfully posted a message!');
     });
     // Messages.add(message);
+    console.log(Messages._data);
     MessagesView.render();
   },
 

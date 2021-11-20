@@ -18,7 +18,11 @@ var Rooms = {
 
   },
 
-  add: function () {
+  add: function (newRoomName) {
+    Rooms._data[newRoomName] = [];
+  },
+
+  initialize: function () {
     for (var i = 0; i < Messages._data.length; i++) {
       if (Messages._data[i].roomname !== null) {
         var messageID = Messages._data[i].message_id;
@@ -27,7 +31,14 @@ var Rooms = {
         } else {
           this._data[Messages._data[i].roomname].push(messageID);
         }
+      } else {
+        var messageID = Messages._data[i].message_id;
+        if (!this._data['All']) {
+          this._data['All'] = [messageID];
+        } else {
+          this._data['All'].push(messageID);
+        }
       }
     }
-  },
+  }
 };

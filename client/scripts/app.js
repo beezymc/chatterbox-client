@@ -30,7 +30,10 @@ var App = {
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
       Messages.add(data);
-      Rooms.add();
+      Rooms.initialize();
+      // console.log(Rooms._data);
+      RoomsView.render();
+      RoomsView.handleChange();
       // FormView.setStatus(false);
       App.stopSpinner();
       // MessagesView.render();

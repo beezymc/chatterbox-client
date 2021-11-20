@@ -22,12 +22,11 @@ var Messages = {
   // TODO: Define methods which allow you to retrieve from,
   // add to, and generally interact with the messages.
   retrieve: function () {
-
+    return Messages._data;
   },
 
   add: function (data) {
     this._data = [...data];
-    console.log('add:', this._data);
     MessagesView.render();
   },
 

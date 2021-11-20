@@ -9,25 +9,37 @@ var MessagesView = {
     // TODO: Perform any work which needs to be done
     // when this view loads.
     // MessagesView.render();
+
   },
 
-  render: function() {
+  render: function(messages) {
     // TODO: Render _all_ the messages.
     // Loop through messages structure, ensure they match the html we want, and append them to $chats.
-    for (let i = 0; i < Messages._data.length; i++) {
-      MessagesView.renderMessage(Messages._data[i]);
+    messages = messages || Messages._data;
+    for (let i = 0; i < messages.length; i++) {
+      MessagesView.renderMessage(messages[i]);
     }
   },
 
   renderMessage: function(message) {
     // TODO: Render a single message.
-    const html = MessageView.render(message);
+    const html = $(MessageView.render(message));
     MessagesView.$chats.append(html);
+    html.on('click', MessagesView.handleClick);
   },
 
   handleClick: function(event) {
     // TODO: handle a user clicking on a message
     // (this should add the sender to the user's friend list).
+    // console.log(event.target.class('username'));
+    const friendUser = $(this).find('.username').text().trim();
+    Friends.add(friendUser);
+    const users = $('.username');
+    Friends.toggleStatus(friendUser, users);
+
+    // console.log(chatDiv.html());
+    // console.log('username:', $('.username'))
+
   }
 
 };
