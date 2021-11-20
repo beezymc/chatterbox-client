@@ -30,13 +30,19 @@ var FormView = {
     updated_at: "2021-11-19T21:45:06.101Z"
     username: null
     */
+    const $messageText = FormView.$form.find('input[id=message]').val();
+    const username = window.App.username;
     const message = {
-      text: FormView.$form.find('input[type=submit]').val()
-
+      // roomname:
+      campus: window.CAMPUS,
+      text: $messageText,
+      username: username
     };
     Parse.create(message, function () {
       console.log('Successfully posted a message!');
     });
+    // Messages.add(message);
+    MessagesView.render();
   },
 
   setStatus: function(active) {
