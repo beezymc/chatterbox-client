@@ -8,16 +8,35 @@ var FormView = {
 
   initialize: function() {
     FormView.$form.on('submit', FormView.handleSubmit);
+    // FormView.$form.on('input', 'input:text', FormView.handleInput);
   },
+
+  // handleInput: function(event) {
+  //   FormView.setStatus(FormView.$form.find('input[type=submit]').val());
+  // },
 
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-
     // TODO: Currently, this is all handleSubmit does.
     // Make this function actually send a message to the Parse API.
-  
-    console.log('click!');
+    /*
+    campus: "hr-sfo"
+    created_at: "2021-11-19T21:45:06.101Z"
+    github_handle: "beezymc"
+    message_id: 40205
+    roomname: null
+    text: null
+    updated_at: "2021-11-19T21:45:06.101Z"
+    username: null
+    */
+    const message = {
+      text: FormView.$form.find('input[type=submit]').val()
+
+    };
+    Parse.create(message, function () {
+      console.log('Successfully posted a message!');
+    });
   },
 
   setStatus: function(active) {
