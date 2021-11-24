@@ -6,39 +6,35 @@ var Rooms = {
 
   // TODO: Define how you want to store the list of rooms
   //
-  _data: {},
+  _data: new Set(),
+
+  selected: 'lobby',
+
+  filtered: false,
 
   // TODO: Define methods which allow you to add rooms, update the list,
   // mark a room as selected, etc.
-  update: function () {
 
+  items: function () {
+    return [...Rooms._data];
   },
 
-  select: function (data) {
-
+  isSelected: function (roomName = 'lobby') {
+    return roomName === Rooms.selected;
   },
 
-  add: function (newRoomName) {
-    Rooms._data[newRoomName] = [];
+  add: function (newRoomName, callback = () => {}) {
+    Rooms._data.add(newRoomName);
+    Rooms.selected = newRoomName;
+    callback(Rooms.items());
   },
 
-  initialize: function () {
-    for (var i = 0; i < Messages._data.length; i++) {
-      if (Messages._data[i].roomname !== null) {
-        var messageID = Messages._data[i].message_id;
-        if (!this._data[Messages._data[i].roomname]) {
-          this._data[Messages._data[i].roomname] = [messageID];
-        } else {
-          this._data[Messages._data[i].roomname].push(messageID);
-        }
-      } else {
-        var messageID = Messages._data[i].message_id;
-        if (!this._data['All']) {
-          this._data['All'] = [messageID];
-        } else {
-          this._data['All'].push(messageID);
-        }
+  update: function (messages, callback = () => {}) {
+    for (var i = 0; i < messages.length; i++) {
+      if (messages[i].roomname !== null && !Rooms._data.has(messages[i].roomname)) {
+        Rooms.add(messages[i].roomname);
       }
     }
+    callback(Rooms.items());
   }
 };

@@ -21,7 +21,7 @@ var App = {
 
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
-    // setInterval( App.fetch, 5000);
+    setInterval(App.fetch, 5000);
   },
 
   fetch: function(callback = ()=>{}) {
@@ -29,14 +29,16 @@ var App = {
       // examine the response from the server request:
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
-      Messages.add(data);
-      Rooms.initialize();
-      // console.log(Rooms._data);
-      RoomsView.render();
-      RoomsView.handleChange();
-      // FormView.setStatus(false);
+      if (!Rooms.filtered) {
+        Messages.update(data, MessagesView.render);
+      }
+      MessagesView.renderFriends();
+      Rooms.update(data, RoomsView.render);
+      // Messages.add(data);
+      // Rooms.initialize();
+      // RoomsView.render();
+      // RoomsView.handleChange();
       App.stopSpinner();
-      // MessagesView.render();
     });
   },
 

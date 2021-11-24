@@ -21,19 +21,23 @@ var Messages = {
 
   // TODO: Define methods which allow you to retrieve from,
   // add to, and generally interact with the messages.
-  retrieve: function () {
-    return Messages._data;
+  items: function () {
+    return this._data;
   },
 
-  add: function (data) {
-    this._data = [...data];
-    MessagesView.render();
+  add: function (message, callback = () => {}) {
+    Messages.items().unshift(message);
+    callback();
   },
 
-  update: function (message) {
-    this._data.push(message);
-    const html = MessageView.render(message);
-    MessagesView.$chats.prepend(html);
+  update: function (messages, callback = () => {}) {
+    this._data = [...messages];
+    for (let i = 0; i < this._data.length; i++) {
+      if (this._data[i].roomname === null) {
+        this._data[i].roomname = 'lobby';
+      }
+    }
+    callback();
   }
 
 };

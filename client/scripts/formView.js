@@ -31,22 +31,18 @@ var FormView = {
     username: null
     */
     const $messageText = FormView.$form.find('input[id=message]').val();
-    const $selectedVal = $('select option:selected').val();
+    const $selectedRoom = $('select option:selected').val();
     const username = window.App.username;
     const message = {
-      roomname: $selectedVal,
+      roomname: $selectedRoom,
       campus: window.CAMPUS,
       text: $messageText,
       username: username
     };
     Parse.create(message, function () {
-      // Messages.add(message);
-      Messages.update(message);
+      Messages.add(message, MessagesView.renderNewMessage(message));
       console.log('Successfully posted a message!');
     });
-    // Messages.add(message);
-    console.log(Messages._data);
-    MessagesView.render();
   },
 
   setStatus: function(active) {
